@@ -4,6 +4,9 @@
 name: Swift
 
 on:
+  push:
+    branches:
+      - feature/fixing-action
   workflow_dispatch:
     inputs:
       releaseName:
