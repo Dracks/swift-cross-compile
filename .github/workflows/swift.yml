@@ -23,11 +23,11 @@ jobs:
       run: cp .build/release/swift-sdk-generator .
     - name: generate linux arm sdk
       run: \
-        swift-sdk-generator make-linux-sdk --target arm64-unknown-linux-gnu --host amd64-unknown-linux-gnu
+        ./swift-sdk-generator make-linux-sdk --target arm64-unknown-linux-gnu --host amd64-unknown-linux-gnu
         tar -zcvf amd64-unknown-linux-gnu.tgz checkouts/swift-sdk-generator/Bundles/5.10.1-RELEASE_ubuntu_jammy_amd64.artifactbundle
     - name: generate linux amd64 sdk
       run: \
-        swift-sdk-generator make-linux-sdk --target aarch64-unknown-linux-gnu --host amd64-unknown-linux-gnu
+        ./swift-sdk-generator make-linux-sdk --target aarch64-unknown-linux-gnu --host amd64-unknown-linux-gnu
         tar -zcvf aarch64-unknown-linux-gnu.tgz checkouts/swift-sdk-generator/Bundles/5.10.1-RELEASE_ubuntu_jammy_aarch64.artifactbundle
     - name: Create release
       id: createRelease
