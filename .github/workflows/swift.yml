@@ -30,8 +30,8 @@ jobs:
         tar -zcvf amd64-unknown-linux-gnu.tgz --cd .build/checkouts/swift-sdk-generator/Bundles/ 5.10.1-RELEASE_ubuntu_jammy_aarch64.artifactbundle 
     - name: generate linux amd64 sdk
       run: |
-        ./swift-sdk-generator make-linux-sdk --target aarch64-unknown-linux-gnu --host amd64-unknown-linux-gnu
-        tar -zcvf aarch64-unknown-linux-gnu.tgz --cd .build/checkouts/swift-sdk-generator/Bundles/ 5.10.1-RELEASE_ubuntu_jammy_amd64.artifactbundle
+        ./swift-sdk-generator make-linux-sdk --target amd64-unknown-linux-gnu --host amd64-unknown-linux-gnu
+        tar -zcvf aarch64-unknown-linux-gnu.tgz --cd .build/checkouts/swift-sdk-generator/Bundles/ 5.10.1-RELEASE_ubuntu_jammy_aarch64.artifactbundl
     - name: Create release
       id: createRelease
       uses: actions/create-release@v1
