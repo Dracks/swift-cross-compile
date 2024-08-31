@@ -5,7 +5,10 @@ name: Swift
 
 on:
   workflow_dispatch:
-    
+    inputs:
+      releaseName:
+        description: 'ReleaseName'
+        required: true
 
 jobs:
   build:
@@ -19,6 +22,26 @@ jobs:
     - name: copy swift-sdk
       run: cp .build/release/swift-sdk-generator .
     - name: generate linux arm sdk
-      run: swift-sdk-generator make-linux-sdk --target arm64-unknown-linux-gnu --host amd64-unknown-linux-gn
+      run: \
+        swift-sdk-generator make-linux-sdk --target arm64-unknown-linux-gnu --host amd64-unknown-linux-gnu
+        tar -zcvf amd64-unknown-linux-gnu.tgz checkouts/swift-sdk-generator/Bundles/5.10.1-RELEASE_ubuntu_jammy_amd64.artifactbundle
     - name: generate linux amd64 sdk
-      run: swift-sdk-generator make-linux-sdk --target amd64-unknown-linux-gnu --host amd64-unknown-linux-gn
+      run: \
+        swift-sdk-generator make-linux-sdk --target aarch64-unknown-linux-gnu --host amd64-unknown-linux-gnu
+        tar -zcvf aarch64-unknown-linux-gnu.tgz checkouts/swift-sdk-generator/Bundles/5.10.1-RELEASE_ubuntu_jammy_aarch64.artifactbundle
+    - name: Create release
+      id: createRelease
+      uses: actions/create-release@v1
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        owner: ${{ github.repositoryOwner }}
+        repo: ${{ github.repositoryName }}
+        tag_name: ${{ steps.createRelease.outputs.tag_name }}
+        release_name: ${{ github.event.inputs.project }}
+      - name: Upload assets to release
+        uses: actions/upload-artifact@v2
+          name: aarch64-unknown-linux-gnu
+          path: ./aarch64-unknown-linux-gnu.tgz
+      - name: Upload assets to release
+        uses: actions/upload-artifact@v2
+          name: amd64-unknown-linux-gnu
+          path: ./amd64-unknown-linux-gnu.tgz
