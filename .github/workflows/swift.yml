@@ -24,7 +24,7 @@ jobs:
       id: cache-build
       uses: actions/cache@v4
       with:
-        path: prime-numbers
+        path: .build
         key: ${{ runner.os }}-build
     - name: Build
       run: |
